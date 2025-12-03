@@ -6,9 +6,7 @@ import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.random.Random;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,9 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public abstract class EntityMixin {
-
-    @Shadow
-    public abstract @Nullable LivingEntity getEntity();
 
     @Unique
     final int scalemod$INTERVAL = ScaleRandomizer.config.scaleTimer;
@@ -32,7 +27,8 @@ public abstract class EntityMixin {
 
     @Inject(method = "tick", at = @At("HEAD"))
     public void tick(CallbackInfo ci) {
-        if (!getEntity().getEntityWorld().isClient()) {
+        LivingEntity entity = (LivingEntity) (Object) this;
+        if (!entity.getEntityWorld().isClient()) {
             scalemod$timer--;
             if (scalemod$timer <= 0) {
                 scalemod$timer = scalemod$INTERVAL;
