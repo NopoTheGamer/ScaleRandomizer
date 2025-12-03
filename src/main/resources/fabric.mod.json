@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"id": "scale-randomizer",
+	"version": "${version}",
+	"name": "Scale Randomizer",
+	"description": "Randomizes every entities size every so often!",
+	"authors": [
+		"nopo"
+	],
+	"contact": {
+		"sources": "https://github.com/NopoTheGamer/ScaleRandomizer"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/scale-randomizer/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "com.nopo.ScaleRandomizer"
+			}
+		]
+	},
+	"mixins": [
+		"scale-randomizer.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.18.1",
+		"minecraft": "~1.21.10",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
