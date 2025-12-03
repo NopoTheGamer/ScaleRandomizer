@@ -45,13 +45,22 @@ public abstract class EntityMixin {
             EntityAttributeInstance scaleAttribute = entity.getAttributeInstance(EntityAttributes.SCALE);
             if (scaleAttribute != null) {
                 Random r = entity.getRandom();
+                double random;
                 if (r.nextFloat() < ScaleRandomizer.config.fullRangeChance) {
-                    double random = 0.0625 + r.nextDouble() * (16 - 0.0625);
-                    scaleAttribute.setBaseValue(random);
+                    random = 0.0625 + r.nextDouble() * (16 - 0.0625);
                 } else {
-                    double random = 0.25 + r.nextDouble() * (1.75 - 0.25);
-                    scaleAttribute.setBaseValue(random);
+                    random = 0.25 + r.nextDouble() * (1.75 - 0.25);
                 }
+                scaleAttribute.setBaseValue(random);
+                EntityAttributeInstance entitySwingAttribute = entity.getAttributeInstance(EntityAttributes.ENTITY_INTERACTION_RANGE);
+                if (entitySwingAttribute != null) {
+                    entitySwingAttribute.setBaseValue(2 + random);
+                }
+                EntityAttributeInstance blockSwingAttribute = entity.getAttributeInstance(EntityAttributes.BLOCK_INTERACTION_RANGE);
+                if (blockSwingAttribute != null) {
+                    blockSwingAttribute.setBaseValue(3.5 + random);
+                }
+
                 entity.calculateDimensions();
             }
         }
